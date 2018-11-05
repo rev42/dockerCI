@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
     # specify the version you desire here
-    - image: circleci/node:7.10
+    - image: circleci/node:8.1.4
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
@@ -36,4 +36,16 @@ jobs:
     # run tests!
     - run: yarn test
 
+    - setup_remote_docker
 
+    - run: |
+        docker login -u$DOCKERHUB_LOGIN -p$DOCKERHUB_PASSWORD
+
+    - run:
+        name: Build Docker Image
+        command: docker build -t rev42/dockerci:$CIRCLE_SHA1 .
+
+    - run:
+        name: Push to DockerHub
+        command: |
+          docker push rev42/dockerci:$CIRCLE_SHA1
