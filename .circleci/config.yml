@@ -59,7 +59,7 @@ jobs:
               ssh $SSH_USER@$SSH_HOST "docker stop dockerci"
               ssh $SSH_USER@$SSH_HOST "docker rm dockerci"
               ssh $SSH_USER@$SSH_HOST "docker pull rev42/dockerci"
-              ssh $SSH_USER@$SSH_HOST "docker run -d --name dockerci -p 8080:80 rev42/dockerci:latest"
+              ssh $SSH_USER@$SSH_HOST "docker run -d --name dockerci -p 80:8080 rev42/dockerci:latest"
 
 workflows:
   version: 2
